@@ -1,0 +1,16 @@
+---
+name: garden
+
+templates:
+  garden_ctl.erb: bin/garden_ctl
+
+packages:
+  - astroturf
+
+properties
+  garden.listen_network:
+    description: "Garden server connection mode (tcp or unix)."
+    default: unix
+  garden.listen_address:
+    description: "Garden server listening address."
+    default: /var/vcap/data/garden/garden.sock

@@ -1,0 +1,79 @@
+#!/bin/bash -e
+
+set -x
+
+RUN_DIR=/var/vcap/sys/run/garden
+LOG_DIR=/var/vcap/sys/log/garden
+PIDFILE=$RUN_DIR/garden.pid
+DATA_DIR=/var/vcap/data/garden
+
+function setup() {
+  mkdir -p /var/vcap/sys/log/monit
+  exec 1>> /var/vcap/sys/log/monit/garden.log
+  exec 2>> /var/vcap/sys/log/monit/garden.log
+}
+
+case $1 in
+  start)
+    setup
+    if [ -f "$PIDFILE" ]; then
+      pid=$(head -1 "$PIDFILE")
+
+      if [ -n "$pid" ] && [ -e /proc/$pid ]; then
+        echo "Garden is already running (pid: $pid); aborting."
+        exit 1
+      fi
+
+      echo "Removing stale pidfile..."
+      rm "$PIDFILE"
+    fi
+
+    mkdir -p $RUN_DIR
+    mkdir -p $DATA_DIR
+    mkdir -p $LOG_DIR
+
+    export TMPDIR=/var/vcap/data/tmp
+    mkdir -p $TMPDIR
+
+    export PATH=/var/vcap/jobs/garden/bin:$PATH
+    mkdir -p /var/vcap/data/garden/depot
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/astroturf/bin/astroturf \
+      1>>$LOG_DIR/garden.stdout.log \
+      2>>$LOG_DIR/garden.stderr.log
+
+    ;;
+
+  stop)
+    setup
+    pid=$(cat $PIDFILE)
+
+    for i in $(seq 30); do
+      echo "sending TERM to ${pid}..."
+      if kill $pid; then
+        sleep 1
+      else
+        echo "exited"
+        exit 0
+      fi
+    done
+
+    echo "timed out; sending SIGQUIT followed by SIGKILL to ${pid}..."
+    if kill -QUIT $pid; then
+      sleep 5
+
+      echo "killing ${pid}..."
+      kill -9 $pid
+    fi
+
+    echo "killed"
+
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+
+    ;;
+
+esac
