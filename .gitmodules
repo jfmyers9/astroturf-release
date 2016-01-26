@@ -1,0 +1,3 @@
+[submodule "src/github.com/jfmyers9/astroturf"]
+	path = src/github.com/jfmyers9/astroturf
+	url = https://github.com/jfmyers9/astroturf
