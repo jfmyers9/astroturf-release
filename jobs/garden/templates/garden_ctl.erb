@@ -45,6 +45,7 @@ case $1 in
       --memoryInBytes=<%= p("garden.memory_capacity_in_bytes") %> \
       --diskInBytes=<%= p("garden.disk_capacity_in_bytes") %> \
       --maxContainers=<%= p("garden.max_containers") %> \
+      --logLevel=<%= p("garden.log_level") %> \
       1>>$LOG_DIR/garden.stdout.log \
       2>>$LOG_DIR/garden.stderr.log
 

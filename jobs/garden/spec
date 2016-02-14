@@ -23,3 +23,6 @@ properties:
   garden.max_containers:
     description: "Max containers allowed"
     default: 0
+  garden.log_level:
+    description: "Logging level for astroturf"
+    default: info
