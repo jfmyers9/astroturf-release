@@ -1,0 +1,20 @@
+---
+name: astroturf
+
+dependencies:
+  - golang_1.4
+
+files:
+  - github.com/bmizerany/pat/*.go
+  - github.com/cloudfoundry-incubator/cf-lager/*.go
+  - github.com/cloudfoundry-incubator/garden/*.go
+  - github.com/cloudfoundry-incubator/garden/routes/*.go
+  - github.com/cloudfoundry-incubator/garden/server/*.go
+  - github.com/cloudfoundry-incubator/garden/server/bomberman/*.go
+  - github.com/cloudfoundry-incubator/garden/server/streamer/*.go
+  - github.com/cloudfoundry-incubator/garden/server/timebomb/*.go
+  - github.com/cloudfoundry-incubator/garden/transport/*.go
+  - github.com/jfmyers9/astroturf/*.go
+  - github.com/jfmyers9/astroturf/cmd/astroturf/*.go
+  - github.com/pivotal-golang/lager/*.go
+  - github.com/tedsuo/rata/*.go

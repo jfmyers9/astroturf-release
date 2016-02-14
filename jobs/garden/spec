@@ -7,10 +7,19 @@ templates:
 packages:
   - astroturf
 
-properties
+properties:
   garden.listen_network:
     description: "Garden server connection mode (tcp or unix)."
     default: unix
   garden.listen_address:
     description: "Garden server listening address."
     default: /var/vcap/data/garden/garden.sock
+  garden.memory_capacity_in_bytes:
+    description: "Garden memory capacity"
+    default: 0
+  garden.disk_capacity_in_bytes:
+    description: "Garden disk capacity"
+    default: 0
+  garden.max_containers:
+    description: "Max containers allowed"
+    default: 0
