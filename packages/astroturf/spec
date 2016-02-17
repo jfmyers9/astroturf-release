@@ -18,3 +18,4 @@ files:
   - github.com/jfmyers9/astroturf/cmd/astroturf/*.go
   - github.com/pivotal-golang/lager/*.go
   - github.com/tedsuo/rata/*.go
+  - github.com/nu7hatch/gouuid/*.go
