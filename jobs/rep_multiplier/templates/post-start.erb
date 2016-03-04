@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+rep_monit_path=<%= p("astroturf.rep_multiplier.rep_monitrc_path") %>
+
+for i in `seq 1 <%= p("astroturf.rep_multiplier.num_reps") %>`; do
+
+cat >> $rep_monit_path << EOL
+
+check process rep-$i
+  with pidfile /var/vcap/sys/run/rep/rep-$i.pid
+  start program "/var/vcap/jobs/rep/bin/rep_ctl start $i"
+  stop program "/var/vcap/jobs/rep/bin/rep_ctl stop $i"
+  group vcap
+  depends on garden
+
+EOL
+
+done
+
+/var/vcap/bosh/bin/monit reload

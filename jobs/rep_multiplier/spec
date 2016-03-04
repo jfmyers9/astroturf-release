@@ -1,0 +1,14 @@
+---
+name: rep_multiplier
+
+templates:
+  post-start.erb: bin/post-start
+
+packages:
+properties:
+  astroturf.rep_multiplier.num_reps:
+    description: "number of jobs to multiply"
+    default: 0
+  astroturf.rep_multiplier.rep_monitrc_path:
+    description: "monit file script to multiply"
+    default: "/var/vcap/monit/job/*_rep.monitrc"
