@@ -39,6 +39,8 @@ case $1 in
     mkdir -p /var/vcap/data/garden/depot
     echo $$ > $PIDFILE
 
+    ulimit -n 100000
+
     exec /var/vcap/packages/astroturf/bin/astroturf \
       --listenNetwork=<%= p("garden.listen_network") %> \
       --listenAddress=<%= p("garden.listen_address") %> \
